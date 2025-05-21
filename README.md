@@ -1,16 +1,51 @@
 # V20next9Keepalive
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.11.
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli).
 
-## Development server
+## HTTP Keepalive Demo Application
 
-To start a local development server, run:
+### Purpose
+This application demonstrates the performance difference between using HTTP keepalive (persistent connections) and not using it (closing the connection after each request).
+
+### How it Works
+The application consists of two parts:
+1.  A simple Node.js server (`server/server.js`) that exposes two endpoints:
+    *   `/keepalive`: Responds to requests while keeping the TCP connection open.
+    *   `/no-keepalive`: Responds to requests and then explicitly closes the TCP connection.
+2.  An Angular frontend application that allows you to send a configurable number of requests to both of these endpoints and measures the total time taken for each scenario.
+
+By comparing the time taken to complete the same number of requests to both endpoints, you can observe the overhead of establishing new TCP connections for each request when keepalive is not used.
+
+### Running the Application
+1.  **Start the Node.js Server**:
+    Open a terminal and run the following command from the project root:
+    ```bash
+    npm run server
+    ```
+    The server will start on `http://localhost:3000`.
+
+2.  **Start the Angular Application**:
+    Open another terminal and run the following command from the project root:
+    ```bash
+    npm start
+    ```
+    The Angular development server will typically start the application on `http://localhost:4200`. Open this URL in your browser.
+
+3.  **Use the Demo**:
+    *   Enter the number of requests you want to send.
+    *   Click "Run Keepalive Test" to send requests to the `/keepalive` endpoint.
+    *   Click "Run No Keepalive Test" to send requests to the `/no-keepalive` endpoint.
+    *   Observe the time difference reported for both tests.
+    *   Read the "About HTTP Keepalive" section in the app for more details.
+
+## Development server (Angular App)
+
+To start a local development server for the Angular application, run:
 
 ```bash
 ng serve
 ```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Alternatively, you can use `npm start` as mentioned above. Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
 ## Code scaffolding
 
@@ -43,16 +78,6 @@ To execute unit tests with the [Karma](https://karma-runner.github.io) test runn
 ```bash
 ng test
 ```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
 ## Additional Resources
 
